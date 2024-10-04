@@ -1,6 +1,12 @@
 import {Formik} from 'formik';
 import React, {Component, ReactNode} from 'react';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {CountryPicker} from 'react-native-country-codes-picker';
 import {ActivityIndicator, HelperText, TextInput} from 'react-native-paper';
@@ -233,7 +239,7 @@ export class SignUp extends Component<CombinedProps, IState> {
 
     return (
       <ScrollView
-        style={{marginVertical: 35}}
+        style={signUpStyles.scrollViewStyle}
         showsVerticalScrollIndicator={false}>
         <Formik
           validationSchema={signUpSchema}
@@ -413,3 +419,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+
+const signUpStyles = StyleSheet.create({
+  scrollViewStyle: {marginVertical: 35},
+});

@@ -1,6 +1,6 @@
 import {Formik} from 'formik';
 import React, {Component, ReactNode} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
   ActivityIndicator,
   HelperText,
@@ -201,3 +201,6 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+
+
+

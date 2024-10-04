@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, ImageBackground, View} from 'react-native';
+import {Image, ImageBackground, View, StyleSheet} from 'react-native';
 import {
   BottlesForSplash,
   SplashBg,
@@ -25,12 +25,9 @@ export class SplashScreen extends Component {
             <View style={splashScreenStyle.imagesContainer}>
               <Image
                 source={TejaOrganicsLogoWithText}
-                style={{width: responsiveWidth(90)}}
+                style={styles.logoImage}
               />
-              <Image
-                source={BottlesForSplash}
-                style={{width: responsiveWidth(70)}}
-              />
+              <Image source={BottlesForSplash} style={styles.bottlesImage} />
             </View>
           </ImageBackground>
         </ImageBackground>
@@ -38,5 +35,14 @@ export class SplashScreen extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  logoImage: {
+    width: responsiveWidth(90),
+  },
+  bottlesImage: {
+    width: responsiveWidth(70),
+  },
+});
 
 export default SplashScreen;

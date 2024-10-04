@@ -1,6 +1,6 @@
 import {Formik} from 'formik';
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {ActivityIndicator, HelperText, TextInput} from 'react-native-paper';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {connect} from 'react-redux';
@@ -58,7 +58,7 @@ export class NewPassword extends Component<CombinedProps, IState> {
         <Text style={newPasswordStyles.forgotPasswordText}>
           Forgot Password
         </Text>
-        <View style={{marginVertical: 20, flex: 1}}>
+        <View style={styles.formContainer}>
           <Formik
             validationSchema={sentOtpSchema}
             initialValues={{
@@ -172,13 +172,10 @@ export class NewPassword extends Component<CombinedProps, IState> {
                       : ''}
                   </HelperText>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                  }}>
+                <View style={styles.flexContainer}>
                   <TouchableOpacity
                     onPress={() => handleSubmit()}
-                    style={[commonStyles.signUpButton, {marginTop: 'auto'}]}>
+                    style={[commonStyles.signUpButton, styles.submitButton]}>
                     {this.props.apiStatus.changePassword === 'LOADING' ? (
                       <ActivityIndicator color="white" />
                     ) : (
@@ -194,6 +191,19 @@ export class NewPassword extends Component<CombinedProps, IState> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  formContainer: {
+    marginVertical: 20,
+    flex: 1,
+  },
+  flexContainer: {
+    flex: 1,
+  },
+  submitButton: {
+    marginTop: 'auto',
+  },
+});
 
 const mapStateToProps = (state: RootState) => ({
   apiStatus: state.ForgotPasswordSlice.apiStatus,

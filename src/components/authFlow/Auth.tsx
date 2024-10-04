@@ -1,14 +1,22 @@
 import {Component} from 'react';
-import {ImageBackground, Platform, View} from 'react-native';
+import {ImageBackground, Platform, View, StyleSheet} from 'react-native';
 import {responsiveHeight} from 'react-native-responsive-dimensions';
 import {SplashBg, SplashGradient} from '../../assets';
 import AuthBtns from '../commonComponents/AuthBtns';
 import {commonStyles} from '../commonComponents/CommonStyles';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import {NavigationProp} from '@react-navigation/native';
 
+interface RootStackParamList {
+  auth: undefined;
+  home: undefined;
+  'terms-and-conditions': undefined;
+  'verify-otp': undefined;
+  'forgot-password': undefined;
+}
 interface IProps {
-  navigation: any;
+  navigation: NavigationProp<RootStackParamList>;
   route: any;
 }
 interface IState {
@@ -45,7 +53,7 @@ export class Auth extends Component<IProps, IState> {
       <View style={commonStyles.fullVerticalFlex}>
         <ImageBackground
           source={SplashGradient}
-          style={[commonStyles.fullVerticalFlex]}
+          style={commonStyles.fullVerticalFlex}
           resizeMode="cover">
           <ImageBackground
             style={commonStyles.fullVerticalFlex}
@@ -53,13 +61,7 @@ export class Auth extends Component<IProps, IState> {
             resizeMode="cover">
             <View
               style={[
-                {
-                  flex: 1,
-                  padding: 15,
-                  paddingBottom: 0,
-                  marginBottom: -20,
-                  paddingTop: Platform.OS === 'ios' ? responsiveHeight(7) : 15,
-                },
+                styles.container,
                 {
                   backgroundColor: this.state.isSignIn
                     ? 'transparent'
@@ -83,5 +85,15 @@ export class Auth extends Component<IProps, IState> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 15,
+    paddingBottom: 0,
+    marginBottom: -20,
+    paddingTop: Platform.OS === 'ios' ? responsiveHeight(7) : 15,
+  },
+});
 
 export default Auth;
