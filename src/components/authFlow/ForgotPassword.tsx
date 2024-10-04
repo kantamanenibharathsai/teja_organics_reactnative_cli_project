@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Image, SafeAreaView, View} from 'react-native';
+import {Image, SafeAreaView, View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import StepIndicator from 'react-native-step-indicator';
 import Toast from 'react-native-toast-message';
@@ -13,12 +13,19 @@ import {
 import {AppDispatch, RootState} from '../../redux/store';
 import HeaderComponent from '../commonComponents/HeaderComponent';
 import KeyboardWrapper from '../commonComponents/KeyBoardWrapper';
-import {stepperStyles, styles} from './ForgotPasswordStyles';
+import {stepperStyles, styles as externalStyles} from './ForgotPasswordStyles';
 import NewPassword from './NewPassword';
 import OTPVerificationForgotPassword from './OTPVerificationForgotPassword';
 import SendingOTP from './SendingOTP';
+import {NavigationProp} from '@react-navigation/native';
+
+interface RootStackParamList {
+  ForgotPassword: undefined;
+  NewPassword: undefined;
+  OTPVerificationForgotPassword: undefined;
+}
 interface IProps {
-  navigation: any;
+  navigation: NavigationProp<RootStackParamList>;
 }
 
 interface PropsFromRedux {
@@ -79,7 +86,7 @@ export class ForgotPassword extends Component<CombinedProps, IState> {
         text1: 'Success🥳',
         text2: 'Password changed successfully',
       });
-      this.props.navigation.navigate('auth');
+      this.props.navigation.navigate('ForgotPassword');
     }
   }
   render() {
@@ -94,13 +101,13 @@ export class ForgotPassword extends Component<CombinedProps, IState> {
       }
     };
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <View style={styles.wholeContainer}>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={externalStyles.wholeContainer}>
           <HeaderComponent
             text="Forgot Password"
             navigation={this.props.navigation}
           />
-          <View style={{paddingVertical: 10}}>
+          <View style={styles.stepIndicatorContainer}>
             <StepIndicator
               stepCount={3}
               currentPosition={this.state.currentStep}
@@ -110,9 +117,13 @@ export class ForgotPassword extends Component<CombinedProps, IState> {
                 switch (stepStatus) {
                   case 'finished':
                   case 'current':
-                    return <Text style={styles.currentLabel}>{label}</Text>;
+                    return (
+                      <Text style={externalStyles.currentLabel}>{label}</Text>
+                    );
                   default:
-                    return <Text style={styles.stepperLabel}>{label}</Text>;
+                    return (
+                      <Text style={externalStyles.stepperLabel}>{label}</Text>
+                    );
                 }
               }}
               renderStepIndicator={({stepStatus}) => {
@@ -121,7 +132,7 @@ export class ForgotPassword extends Component<CombinedProps, IState> {
                     return (
                       <Image
                         source={CompletedStep}
-                        style={{width: 28, height: 28}}
+                        style={styles.completedStepImage}
                       />
                     );
                   case 'current':
@@ -144,7 +155,7 @@ export class ForgotPassword extends Component<CombinedProps, IState> {
               }}
             />
           </View>
-          <View style={{flex: 1}}>
+          <View style={styles.flexContainer}>
             <KeyboardWrapper>{renderInnerComponent()}</KeyboardWrapper>
           </View>
         </View>
@@ -152,6 +163,22 @@ export class ForgotPassword extends Component<CombinedProps, IState> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  stepIndicatorContainer: {
+    paddingVertical: 10,
+  },
+  completedStepImage: {
+    width: 28,
+    height: 28,
+  },
+  flexContainer: {
+    flex: 1,
+  },
+});
 
 const mapStateToProps = (state: RootState) => ({
   email: state.ForgotPasswordSlice.email,

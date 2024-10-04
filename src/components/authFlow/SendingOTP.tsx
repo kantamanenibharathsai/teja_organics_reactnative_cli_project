@@ -1,6 +1,6 @@
 import {Formik} from 'formik';
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {ActivityIndicator, HelperText, TextInput} from 'react-native-paper';
 import {
   responsiveFontSize,
@@ -43,21 +43,9 @@ export class SendingOTP extends Component<CombinedProps, IState> {
   }
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          height: responsiveHeight(80),
-          padding: 10,
-        }}>
-        <Text
-          style={{
-            color: '#343A40',
-            fontSize: responsiveFontSize(3),
-            fontWeight: '400',
-          }}>
-          Forgot Password
-        </Text>
-        <View style={{marginVertical: 20, flex: 1}}>
+      <View style={styles.container}>
+        <Text style={styles.headerText}>Forgot Password</Text>
+        <View style={styles.formContainer}>
           <Formik
             validationSchema={sentOtpSchema}
             initialValues={{
@@ -105,16 +93,13 @@ export class SendingOTP extends Component<CombinedProps, IState> {
                       : ''}
                   </HelperText>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                  }}>
+                <View style={styles.flexContainer}>
                   <TouchableOpacity
                     onPress={() => {
                       this.props.apiStatus.sendOtp !== 'LOADING' &&
                         handleSubmit();
                     }}
-                    style={[commonStyles.signUpButton, {marginTop: 'auto'}]}>
+                    style={[commonStyles.signUpButton, styles.submitButton]}>
                     {this.props.apiStatus.sendOtp === 'LOADING' ? (
                       <ActivityIndicator color="white" />
                     ) : (
@@ -131,6 +116,29 @@ export class SendingOTP extends Component<CombinedProps, IState> {
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: responsiveHeight(80),
+    padding: 10,
+  },
+  headerText: {
+    color: '#343A40',
+    fontSize: responsiveFontSize(3),
+    fontWeight: '400',
+  },
+  formContainer: {
+    marginVertical: 20,
+    flex: 1,
+  },
+  flexContainer: {
+    flex: 1,
+  },
+  submitButton: {
+    marginTop: 'auto',
+  },
+});
+
 const mapStateToProps = (state: RootState) => ({
   apiStatus: state.ForgotPasswordSlice.apiStatus,
 });
@@ -140,3 +148,5 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendingOTP);
+
+

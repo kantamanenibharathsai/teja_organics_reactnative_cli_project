@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, SafeAreaView, Text, View} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {translate} from '../../utils/i18n';
 import HeaderComponent from '../commonComponents/HeaderComponent';
@@ -29,7 +29,7 @@ const data =
 export class TermsAndConditions extends Component<IProps, IState> {
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={termsAndConditionsStyles.safeAreaViewStyle}>
         <View style={tAndCStyles.wholeContainer}>
           <HeaderComponent
             navigation={this.props.navigation}
@@ -48,3 +48,7 @@ export class TermsAndConditions extends Component<IProps, IState> {
 }
 
 export default TermsAndConditions;
+
+const termsAndConditionsStyles = StyleSheet.create({
+  safeAreaViewStyle: {flex: 1},
+});

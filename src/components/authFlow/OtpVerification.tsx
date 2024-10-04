@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  StyleSheet,
 } from 'react-native';
 import {OtpInput} from 'react-native-otp-entry';
 import {ActivityIndicator} from 'react-native-paper';
@@ -115,12 +116,8 @@ export class OtpVerification extends Component<CombinedProps, IState> {
   render() {
     const {timer} = this.state;
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <View
-          style={[
-            tAndCStyles.wholeContainer,
-            {flex: 1, justifyContent: 'space-between', alignItems: 'center'},
-          ]}>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={[tAndCStyles.wholeContainer, styles.container]}>
           <HeaderComponent
             navigation={this.props.navigation}
             text={'OTP Verification'}
@@ -132,12 +129,12 @@ export class OtpVerification extends Component<CombinedProps, IState> {
             focusColor={'#A0E045'}
             theme={{
               pinCodeContainerStyle: commonStyles.otpContainer,
-              containerStyle: {width: responsiveWidth(75), alignSelf: 'center'},
+              containerStyle: styles.otpInputContainer,
             }}
             numberOfDigits={4}
             onTextChange={this.otpTextHandler}
           />
-          <View style={{alignItems: 'center', gap: 20}}>
+          <View style={styles.centeredContainer}>
             <ImageBackground
               source={OtpCircle}
               style={commonStyles.otpCircleBg}
@@ -161,7 +158,7 @@ export class OtpVerification extends Component<CombinedProps, IState> {
                   Resend
                 </Text>
               ) : (
-                <Text style={[commonStyles.resendText, {color: '#A0E045'}]}>
+                <Text style={[commonStyles.resendText, styles.loadingText]}>
                   Loading...
                 </Text>
               )}
@@ -186,6 +183,28 @@ export class OtpVerification extends Component<CombinedProps, IState> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  otpInputContainer: {
+    width: responsiveWidth(75),
+    alignSelf: 'center',
+  },
+  centeredContainer: {
+    alignItems: 'center',
+    gap: 20,
+  },
+  loadingText: {
+    color: '#A0E045',
+  },
+});
 
 const mapStateToProps = (state: RootState) => ({
   apiStatus: state.AuthSlice.apiStuses,

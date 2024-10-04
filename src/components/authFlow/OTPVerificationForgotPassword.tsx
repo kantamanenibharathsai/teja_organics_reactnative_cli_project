@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {ImageBackground, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from 'react-native';
 import {OtpInput} from 'react-native-otp-entry';
 import {ActivityIndicator} from 'react-native-paper';
 import {
@@ -105,21 +111,11 @@ export class OTPVerificationForgotPassword extends Component<
   render() {
     const {timer} = this.state;
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'space-around',
-        }}>
-        <View style={{gap: 10}}>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>OTP Verification</Text>
           <Text
-            style={{
-              color: '#343A40',
-              fontSize: responsiveFontSize(3),
-              fontWeight: '400',
-            }}>
-            OTP Verification
-          </Text>
-          <Text style={[commonStyles.otpDescriptionText, {textAlign: 'left'}]}>
+            style={[commonStyles.otpDescriptionText, styles.descriptionText]}>
             Please enter the verification code send to {this.props.email}
           </Text>
         </View>
@@ -127,12 +123,12 @@ export class OTPVerificationForgotPassword extends Component<
           focusColor={'#A0E045'}
           theme={{
             pinCodeContainerStyle: commonStyles.otpContainer,
-            containerStyle: {width: responsiveWidth(75), alignSelf: 'center'},
+            containerStyle: styles.otpInputContainer,
           }}
           numberOfDigits={4}
           onTextChange={this.otpTextHandler}
         />
-        <View style={{alignItems: 'center', gap: 20}}>
+        <View style={styles.timerContainer}>
           <ImageBackground
             source={OtpCircle}
             style={commonStyles.otpCircleBg}
@@ -154,7 +150,7 @@ export class OTPVerificationForgotPassword extends Component<
                 Resend
               </Text>
             ) : (
-              <Text style={[commonStyles.resendText, {color: '#A0E045'}]}>
+              <Text style={[commonStyles.resendText, styles.loadingText]}>
                 Loading...
               </Text>
             )}
@@ -176,6 +172,35 @@ export class OTPVerificationForgotPassword extends Component<
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  headerContainer: {
+    gap: 10,
+  },
+  headerText: {
+    color: '#343A40',
+    fontSize: responsiveFontSize(3),
+    fontWeight: '400',
+  },
+  descriptionText: {
+    textAlign: 'left',
+  },
+  otpInputContainer: {
+    width: responsiveWidth(75),
+    alignSelf: 'center',
+  },
+  timerContainer: {
+    alignItems: 'center',
+    gap: 20,
+  },
+  loadingText: {
+    color: '#A0E045',
+  },
+});
 
 const mapStateToProps = (state: RootState) => ({
   apiStatus: state.ForgotPasswordSlice.apiStatus,

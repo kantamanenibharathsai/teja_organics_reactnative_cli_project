@@ -14,7 +14,7 @@ const KeyboardWrapper = ({children}: IProps) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{flex: 1}}>
+      style={styles.KeyboardAvoidingViewStyle}>
       <ScrollView
         contentContainerStyle={{
           justifyContent: 'space-between',
@@ -30,4 +30,6 @@ const KeyboardWrapper = ({children}: IProps) => {
 
 export default KeyboardWrapper;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  KeyboardAvoidingViewStyle: {flex: 1},
+});
