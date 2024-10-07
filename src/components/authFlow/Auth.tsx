@@ -15,9 +15,17 @@ interface RootStackParamList {
   'verify-otp': undefined;
   'forgot-password': undefined;
 }
+interface IRouteParams {
+  isSignIn?: boolean;
+}
+
+interface IRoute {
+  params?: IRouteParams;
+}
+
 interface IProps {
   navigation: NavigationProp<RootStackParamList>;
-  route: any;
+  route: IRoute;
 }
 interface IState {
   isSignIn: boolean;

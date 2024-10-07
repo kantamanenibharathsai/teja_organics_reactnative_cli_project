@@ -17,6 +17,7 @@ export interface UserResponse {
   groupId: any;
   twoStepVerified: boolean;
 }
+
 type ApiStatus = 'SUCCESS' | 'ERROR' | 'LOADING' | 'INITIAL';
 export interface Data {
   id: number;

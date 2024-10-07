@@ -6,3 +6,7 @@ export const OtpCircle = require('./otpCircle.png');
 export const CompletedStep = require('./completedStep.png');
 export const IncompletedStep = require('./incompletedStep.png');
 export const currentStep = require('./currentStep.png');
+export const HomeImg = require('./home.png');
+export const CategoriesImg = require('./categories.png');
+export const ProfileImg = require('./profile.png');
+export const CartImg = require('./cart.png');

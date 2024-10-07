@@ -12,6 +12,7 @@ import Home from '../components/home/Home';
 import {IAuthSlice, setUserData} from '../redux/slices/AuthSlice';
 import {AppDispatch, RootState} from '../redux/store';
 import Storage from '../utils/Storage';
+import BottomTabs from '../components/commonComponents/BottomTabs';
 
 const Stack = createStackNavigator();
 
@@ -58,11 +59,8 @@ export class AppRoutes extends Component<CombinedProps, IState> {
             <Stack.Navigator
               initialRouteName={this.props.user === null ? 'auth' : 'home'}
               screenOptions={{headerShown: false}}>
-              <Stack.Screen name="auth">
+              {/* <Stack.Screen name="auth">
                 {props => <Auth {...props} />}
-              </Stack.Screen>
-              <Stack.Screen name="home">
-                {props => <Home {...props} />}
               </Stack.Screen>
               <Stack.Screen name="terms-and-conditions">
                 {props => <TermsAndConditions {...props} />}
@@ -72,6 +70,12 @@ export class AppRoutes extends Component<CombinedProps, IState> {
               </Stack.Screen>
               <Stack.Screen name="forgot-password">
                 {props => <ForgotPassword {...props} />}
+              </Stack.Screen>
+              <Stack.Screen name="categories">
+                {props => <ForgotPassword {...props} />}
+              </Stack.Screen> */}
+              <Stack.Screen name="bottom-tabs">
+                {props => <BottomTabs {...props} />}
               </Stack.Screen>
             </Stack.Navigator>
             <Toast />
